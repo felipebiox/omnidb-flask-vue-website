@@ -1,8 +1,22 @@
 <template>
   <div>
     <p>Home page</p>
-    <p>Random number from backend: {{ randomNumber }}</p>
-    <button @click="getRandom">New random number</button>
+    <b-button @click="getDocumentation">New random number</b-button>
+    </hr>
+
+
+      <template v-for="ct_section in documents">
+          <section class="border-top my-4">
+
+                  <div v-html="ct_section.text">
+
+
+                  </div>
+
+          </section>
+
+      </template>
+
   </div>
 </template>
 
@@ -13,23 +27,18 @@ import axios from 'axios'
 export default {
   data () {
     return {
-      randomNumber: 0
+      documents: 0
     }
   },
   methods: {
-    getRandomInt (min, max) {
-      min = Math.ceil(min)
-      max = Math.floor(max)
-      return Math.floor(Math.random() * (max - min + 1)) + min
+    getDocumentation () {
+      this.documents = this.getDocuments()
     },
-    getRandom () {
-      this.randomNumber = this.getRandomFromBackend()
-    },
-    getRandomFromBackend () {
-      const path = `http://localhost:5000/api/random`
+    getDocuments () {
+      const path = 'http://localhost:5000/api/getDocumentation'
       axios.get(path)
         .then(response => {
-          this.randomNumber = response.data.randomNumber
+          this.documents = response.data.data.content_sections[0].content
         })
         .catch(error => {
           console.log(error)
@@ -37,7 +46,7 @@ export default {
     }
   },
   created () {
-    this.getRandom()
+
   }
 }
 

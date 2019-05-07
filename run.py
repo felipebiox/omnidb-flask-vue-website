@@ -1,13 +1,31 @@
+import psycopg2
+import json
+
 from flask import Flask, render_template, jsonify
 from flask_cors import CORS
 from random import *
 import requests
 
 
+conn = psycopg2.connect("dbname=omnidbwebsite user=postgres")
+
+
+class CustomFlask(Flask):
+    jinja_options = Flask.jinja_options.copy()
+    jinja_options.update(dict(
+      block_start_string='{%',
+      block_end_string='%}',
+      variable_start_string='((',
+      variable_end_string='))',
+      comment_start_string='{#',
+      comment_end_string='#}',
+    ))
 
 
 
-app = Flask(__name__,
+
+app = CustomFlask(__name__,
+            static_url_path = '/static',
             static_folder = "./dist/static",
             template_folder = "./dist")
 cors = CORS(app, resources={r"/api/*": {"origins": "*"}})
@@ -31,4 +49,56 @@ def random_number():
 def catch_all(path):
     if app.debug:
         return requests.get('http://localhost:8080/{}'.format(path)).text
-    return render_template("index.html")
+    return render_template("templates/index.html")
+
+
+
+
+
+
+#Data routes
+@app.route('/api/getDocumentation')
+def documentation():
+
+    cur = conn.cursor()
+
+    cur.execute("SELECT * FROM public.documentation;")
+
+    result = cur.fetchall()
+
+    items = [];
+
+    for item in result:
+        items.append(
+            {
+                'title' : item[0],
+                'description' : item[1],
+                'text' : item[2]
+            }
+        )
+
+    data = {
+        'content_sections': [
+            {
+                'id': 'omnidb-highlights',
+                'wrap_type': 'container-fluid',
+                'content': items
+            }
+        ]
+    }
+
+    widgets = {
+        'sidebar': {
+            'position': 'right',
+            'items': [ {'title': item['title']} for item in items ]
+        }
+    }
+
+    context = {
+        'data': data,
+        'widgets': json.dumps( widgets )
+    }
+
+    response = context
+
+    return  response
