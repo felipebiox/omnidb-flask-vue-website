@@ -1,14 +1,14 @@
 <template>
   <div>
     <p>Home page</p>
-    <b-button @click="getDocumentation">New random number</b-button>
+    <b-button @click="getDocuments">New random number</b-button>
     </hr>
 
 
       <template v-for="ct_section in documents">
           <section class="border-top my-4">
 
-                  <div v-html="ct_section.text">
+                  <div v-html="ct_section.introtext">
 
 
                   </div>
@@ -31,14 +31,11 @@ export default {
     }
   },
   methods: {
-    getDocumentation () {
-      this.documents = this.getDocuments()
-    },
     getDocuments () {
       const path = 'http://localhost:5000/api/getDocumentation'
       axios.get(path)
         .then(response => {
-          this.documents = response.data.data.content_sections[0].content
+          this.documents = response.data.data
         })
         .catch(error => {
           console.log(error)

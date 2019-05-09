@@ -72,33 +72,18 @@ def documentation():
         items.append(
             {
                 'title' : item[0],
-                'description' : item[1],
-                'text' : item[2]
+                'alias' : item[1],
+                'introtext' : item[2],
+                'modified'  : item[3]
             }
         )
 
-    data = {
-        'content_sections': [
-            {
-                'id': 'omnidb-highlights',
-                'wrap_type': 'container-fluid',
-                'content': items
-            }
-        ]
-    }
-
-    widgets = {
-        'sidebar': {
-            'position': 'right',
-            'items': [ {'title': item['title']} for item in items ]
-        }
-    }
+    data = items
 
     context = {
-        'data': data,
-        'widgets': json.dumps( widgets )
+        'data': data
     }
 
     response = context
 
-    return  response
+    return jsonify(response)

@@ -1,15 +1,33 @@
 <template>
+
   <div id="app">
-    <div class="container">
-      <h1>Testes</h1>
-      <img src="./assets/logo.png">
-      <router-view/>
+
+    <omnidb-header></omnidb-header>
+    <div id="page-content">
+      <div class="container">
+        <h1>Testes</h1>
+        <img src="./assets/logo.png">
+        <router-view/>
+      </div>
     </div>
+
   </div>
+
 </template>
 
 <script>
+import OmnidbHeader from './components/omnidb-header.vue';
+
 export default {
-  name: 'App'
+  name: 'App',
+  components: {
+    OmnidbHeader
+  }
 }
 </script>
+
+<style lang="sass">
+
+  @import './assets/scss/style.scss'
+
+</style>
