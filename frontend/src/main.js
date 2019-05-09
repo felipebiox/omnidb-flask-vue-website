@@ -12,11 +12,16 @@ require('./assets/scss/style.scss')
 
 Vue.config.productionTip = false
 Vue.use(BootstrapVue)
+
+import EventBusMixin from './components/mixins/EventBus'
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
   delimiters: ['[[', ']]'],
   router,
   components: { App },
+  mixins: [
+    EventBusMixin
+  ],
   template: '<App/>'
 })

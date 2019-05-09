@@ -22,7 +22,8 @@ export default {
   name: 'App',
   components: {
     OmnidbHeader
-  }
+  },
+  inject:['EventBus']
 }
 </script>
 

@@ -30,6 +30,7 @@ export default {
       documents: 0
     }
   },
+  inject:['EventBus'],
   methods: {
     getDocuments () {
       const path = 'http://localhost:5000/api/getDocumentation'
