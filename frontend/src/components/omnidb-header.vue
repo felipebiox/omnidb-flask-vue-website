@@ -47,16 +47,13 @@
 
 					<div class="col-9 d-flex">
             <b-button-group class="ml-auto">
-              <b-button>Overview</b-button>
-              <b-button>Downloads</b-button>
-              <b-dropdown right text="Documentation">
-                <b-dropdown-item>Item 1</b-dropdown-item>
-                <b-dropdown-item>Item 2</b-dropdown-item>
-                <b-dropdown-divider></b-dropdown-divider>
-                <b-dropdown-item>Item 3</b-dropdown-item>
-              </b-dropdown>
-              <b-button>Community</b-button>
-              <b-button>Sponsors</b-button>
+
+              <b-button
+                v-for="page in pages"
+                @click="emitLoadPage(page.url)"
+              >
+                {{ page.label }}
+              </b-button>
 
             </b-button-group>
 					</div>
@@ -72,7 +69,30 @@
 
 export default {
   name: 'omnidb-header',
-  inject:['EventBus']
+  inject: ['EventBus'],
+  props: {
+    pages: {
+      type: Array,
+      required: true,
+      default: [
+        {
+          url: '/',
+          label: 'Overview',
+          status: true
+        }
+      ]
+    }
+  },
+  data () {
+    return {
+
+    }
+  },
+  methods: {
+    emitLoadPage(pageUrl) {
+      this.EventBus.$emit('omnidb:load-page', pageUrl);
+    }
+  }
 }
 
 </script>
