@@ -61,10 +61,18 @@ export default {
           templateName: 'overview'
         },
         {
-          url:  '/documentation',
+          //url:  '/documentation',
           label: 'Documentation',
           status: false,
-          templateName: 'documentation'
+          templateName: 'documentation',
+          children: [
+            {
+              url: '/documentation',
+              label: '1- Introduction',
+              status: false,
+              templateName: 'documentation'
+            }
+          ]
         }
       ]
     }
@@ -81,7 +89,7 @@ export default {
       }
 
     },
-
+/*
     getIndexPageTemplateByUrl(value) {
       let arr = this.pages;
 
@@ -91,18 +99,21 @@ export default {
       }
 
     },
+*/
+    changePageContent(pageConfig) {
 
-    changePageContent(value) {
-
-      let oldIndex = this.getIndexPageTemplateByStatus(),
-          newIndex = this.getIndexPageTemplateByUrl(value);
+      let oldIndex = this.getIndexPageTemplateByStatus();
+          //newIndex = this.getIndexPageTemplateByUrl(value);
 
       this.pages[oldIndex].status = false;
-      this.pages[newIndex].status = true;
 
+      this.pages[ pageConfig.pageIndex ].status = true;
 
+      if (pageConfig.childIndex) {
+        this.pages[ pageConfig.pageIndex ].children[ pageConfig.childIndex ].status = true;
+      }
 
-      console.log(oldIndex, this.pages[newIndex].status);
+      console.log(pageConfig.childIndex, this.pages[1].children[0]);
 
     }
 
@@ -111,10 +122,10 @@ export default {
   mounted() {
     let vueThis = this;
 
-    this.EventBus.$on('omnidb:load-page', function(value) {
+    this.EventBus.$on('omnidb:load-page', function(pageConfig) {
       //console.log(value)
 
-      vueThis.changePageContent(value);
+      vueThis.changePageContent(pageConfig);
 
     });
   }

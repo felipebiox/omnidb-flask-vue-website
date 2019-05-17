@@ -1,3 +1,4 @@
+import psycopg2
 import json
 
 from flask import Flask, render_template, jsonify
@@ -5,11 +6,8 @@ from flask_cors import CORS
 from random import *
 import requests
 
-#models
-from backend.models.documentation import Document
 
-
-#conn = psycopg2.connect("dbname=omnidbwebsite user=postgres")
+conn = psycopg2.connect("dbname=omnidbwebsite user=postgres")
 
 
 class CustomFlask(Flask):
@@ -30,18 +28,7 @@ app = CustomFlask(__name__,
             static_url_path = '/static',
             static_folder = "./dist/static",
             template_folder = "./dist")
-CORS(
-    app,
-    origins="http://localhost:8080",
-    allow_headers=[
-        "Content-Type",
-        "Access-Control-Allow-Origin",
-        "Access-Control-Allow-Headers",
-        "Access-Control-Allow-Methods",
-        "Access-Control-Allow-Credentials"
-    ],
-    supports_credentials=True
-)
+cors = CORS(app, resources={r"/api/*": {"origins": "*"}})
 
 
 
@@ -71,13 +58,30 @@ def catch_all(path):
 
 #Data routes
 @app.route('/api/getDocumentation')
-#@cross_origin(supports_credentials=True)
 def documentation():
 
-    documents = Document.getAll()
+    cur = conn.cursor()
+
+    cur.execute("SELECT * FROM public.documentation;")
+
+    result = cur.fetchall()
+
+    items = [];
+
+    for item in result:
+        items.append(
+            {
+                'title' : item[0],
+                'alias' : item[1],
+                'introtext' : item[2],
+                'modified'  : item[3]
+            }
+        )
+
+    data = items
 
     context = {
-        'data': documents
+        'data': data
     }
 
     response = context

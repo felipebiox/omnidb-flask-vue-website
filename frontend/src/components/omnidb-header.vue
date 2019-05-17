@@ -49,10 +49,26 @@
             <b-button-group class="ml-auto">
 
               <b-button
-                v-for="page in pages"
-                @click="emitLoadPage(page.url)"
+                v-for="( page, pageIndex ) in pages"
+                :key="pageIndex"
+                @click="(page.url) ? emitLoadPage( { 'pageUrl': page.url, 'pageIndex': pageIndex, 'childIndex': null } ) : preventDefault()"
               >
-                {{ page.label }}
+                  {{ page.label }} {{pageIndex}}
+
+                  <template v-if="page.children">
+
+                      <b-dropdown>
+                        <b-dropdown-item
+                          v-for="( child, childIndex ) in page.children"
+                          :key="childIndex"
+                          @click="(child.url) ? emitLoadPage( { 'pageUrl': child.url, 'pageIndex': pageIndex, 'childIndex': childIndex } ) : preventDefault()"
+                        >
+                            {{ child.label }} {{pageIndex}} {{childIndex}}
+                        </b-dropdown-item>
+                      </b-dropdown>
+
+                  </template>
+
               </b-button>
 
             </b-button-group>
@@ -89,8 +105,11 @@ export default {
     }
   },
   methods: {
-    emitLoadPage(pageUrl) {
-      this.EventBus.$emit('omnidb:load-page', pageUrl);
+    emitLoadPage(pageConfig) {
+      this.EventBus.$emit( 'omnidb:load-page', { 'pageUrl': pageConfig.pageUrl, 'pageIndex': pageConfig.pageIndex, 'childIndex': pageConfig.childIndex } );
+    },
+    preventDefault() {
+      this.preventDefault;
     }
   }
 }
