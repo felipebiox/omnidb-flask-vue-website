@@ -1,21 +1,6 @@
 <template>
   <div>
-    <p>Home page</p>
-    <b-button @click="getDocuments">New random number</b-button>
-    </hr>
-
-
-      <template v-for="ct_section in documents">
-          <section class="border-top my-4">
-
-                  <div v-html="ct_section.introtext">
-
-
-                  </div>
-
-          </section>
-
-      </template>
+    <p>Overview</p>
 
   </div>
 </template>

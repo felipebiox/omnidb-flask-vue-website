@@ -52,10 +52,11 @@
                 v-for="( page, pageIndex ) in pages"
                 :key="pageIndex"
                 @click="(page.url) ? emitLoadPage( { 'pageUrl': page.url, 'pageIndex': pageIndex, 'childIndex': null } ) : preventDefault()"
+                variant="transparent"
               >
-                  {{ page.label }} {{pageIndex}}
+                  {{ page.label }}
 
-                  <template v-if="page.children">
+                  <template v-if="page.children && page.children.length > 0">
 
                       <b-dropdown>
                         <b-dropdown-item

@@ -1,0 +1,72 @@
+.animated {
+  &.fadeIn {
+    opacity: 0;
+    @include animation-name(fadeIn);
+    @include animation-duration(0.4s);
+    @include animation-iteration-count(1);
+    @include animation-fill-mode(forwards);
+    @include animation-delay(0s);
+  }
+  &.slideInFromLeft {
+    transform: translateX(0);
+    @include animation-name(slideInFromLeft);
+    @include animation-duration(0.4s);
+    @include animation-iteration-count(1);
+    @include animation-fill-mode(forwards);
+    @include animation-delay(0s);
+  }
+  &.slideInFromRight {
+    transform: translateX(0);
+    @include animation-name(slideInFromRight);
+    @include animation-duration(0.55s);
+    @include animation-iteration-count(1);
+    @include animation-fill-mode(forwards);
+    @include animation-delay(0s);
+  }
+  &.flipInVertical {
+    transform: scaleY(0);
+    @include animation-name(flipInVertical);
+    @include animation-duration(0.67s);
+    @include animation-iteration-count(1);
+    @include animation-fill-mode(forwards);
+    @include animation-delay(0s);
+  }
+  &.flipInHorizontal {
+    transform: scaleX(0);
+    @include animation-name(flipInHorizontal);
+    @include animation-duration(0.67s);
+    @include animation-iteration-count(1);
+    @include animation-fill-mode(forwards);
+    @include animation-delay(0s);
+  }
+}
+
+.hA_cardFlow {
+    $an_start: 0.5s;
+    $an_duration: 0.45s;
+
+    opacity: 0;
+    transform: scale(0);
+
+    @include animation-name(growIn, fadeIn);
+    @include animation-delay($an_start);
+    @include animation-fill-mode(forwards);
+    @include animation-duration($an_duration);
+    .card-header,
+    .card-body {
+        opacity: 0;
+        transform: translateX(100%);
+    }
+    .card-header {
+        @include animation-name(slideInFromRight, fadeIn);
+        @include animation-delay($an_start*1.6);
+        @include animation-fill-mode(forwards);
+        @include animation-duration($an_duration);
+    }
+    .card-body {
+        @include animation-name(slideInFromRight, fadeIn);
+        @include animation-delay($an_start*2);
+        @include animation-fill-mode(forwards);
+        @include animation-duration($an_duration);
+    }
+}

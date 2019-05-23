@@ -4,13 +4,17 @@
   class="omnidb_documents-lister_li"
 >
 
-      <omnidb-documents-lister-svg
-        :index="index"
-        :item-height="itemHeight"
-      >
-      </omnidb-documents-lister-svg>
+    <a href="#" @click.prevent="emitChangeDocument( index )">
 
-      {{item.title}}
+        <omnidb-documents-lister-svg
+          :index="index"
+          :item-height="itemHeight"
+        >
+        </omnidb-documents-lister-svg>
+
+        {{item.title}}
+    </a>
+
 </li>
 </template>
 
@@ -35,10 +39,12 @@ export default {
       omnidbDocumentsListerSvg
   },
 
+  inject: ['EventBus'],
+
   methods: {
 
       getLiHeight() {
-        console.log('autalizou');
+        //console.log('autalizou');
 
         this.$nextTick(function () {
           // DOM is now updated
@@ -55,6 +61,10 @@ export default {
 
           this.itemHeight = $('#omnidb_documents-lister_li-' + this.index ).height();
 
+      },
+
+      emitChangeDocument( index ) {
+        this.EventBus.$emit( 'omnidb:change-document', { 'index': index } );
       }
 
   },
@@ -69,7 +79,7 @@ export default {
 
       this.getLiHeight();
 
-      console.log($('#omnidb_documents-lister_li-' + this.index ).height());
+      //console.log($('#omnidb_documents-lister_li-' + this.index ).height());
 
   },
 

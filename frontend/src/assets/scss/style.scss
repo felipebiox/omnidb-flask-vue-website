@@ -1,9 +1,19 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto&display=swap');
+
 @import 'variables';
 
+@import 'mixins';
+
+@import 'app';
+@import 'has-animation';
+@import 'page-content';
+
 body {
-  font-family: 'Open Sans', sans-serif;
+  font-family: 'Roboto', sans-serif;
   font-size: 14px;
   color: #678;
+  height: 100vh;
+  overflow-y: hidden;
 }
 h1, h2, h3, h4, h5 {
   line-height: 1.2;

@@ -6,19 +6,35 @@
 
             <div class="col-12 col-lg-9">
 
-                  <template v-for="ct_section in documents">
-                      <section class="border-top my-4">
+                  <template
 
-                              <h1 class="text-left">
-                                {{ct_section.title}}
-                              </h1>
+                    v-for="(ct_section, index) in documents">
 
-                              <div v-html="ct_section.introtext">
+                        <template
+                        v-if="sectionStatus == index + 1">
+                                <div
+                                  class="card hA_cardFlow"
+                                >
+
+                                    <div class="card-header">
+                                        <h1 class="text-left">
+                                            {{ct_section.title}}
+                                        </h1>
+                                    </div>
+
+                                    <div class="card-body">
+                                        <section class="border-top my-4">
+
+                                                <div v-html="ct_section.introtext">
 
 
-                              </div>
+                                                </div>
 
-                      </section>
+                                        </section>
+                                    </div>
+
+                                </div>
+                        </template>
 
                   </template>
 
@@ -50,13 +66,17 @@ import omnidbDocumentsLister from './../components/omnidb_documents-lister/omnid
 export default {
   data () {
     return {
-      documents: []
+      documents: [],
+      sectionStatus: 1
     }
   },
+
   components: {
     omnidbDocumentsLister
   },
+
   inject:['EventBus'],
+
   methods: {
 
     getDocuments () {
@@ -80,16 +100,53 @@ export default {
 
       axios.get( path, config )
         .then(response => {
-          this.documents = response.data.data
+
+            this.documents = response.data.data;
+
+            this.setStatus();
+
         })
         .catch(error => {
           console.log(error)
         })
+    },
+
+    setStatus(index) {
+        let i = 0;
+        for (i = 0; i < this.documents.length; i++) {
+            this.documents[ i ].status = false;
+        }
+    },
+
+    changeDocument(documentConfig) {
+
+        //console.log( documentConfig.index, this.documents[ documentConfig.index ].status );
+
+        let i = 0;
+
+        for ( i=0; i < this.documents.length; i++) {
+
+            this.documents[i].status = false;
+
+        }
+
+        this.documents[ documentConfig.index ].status = true;
+        this.sectionStatus = documentConfig.index + 1;
+
     }
 
   },
   mounted () {
     this.getDocuments();
+
+    let vueThis = this;
+
+    this.EventBus.$on('omnidb:change-document', function(documentConfig) {
+
+      vueThis.changeDocument(documentConfig);
+
+    });
+
   }
 }
 
