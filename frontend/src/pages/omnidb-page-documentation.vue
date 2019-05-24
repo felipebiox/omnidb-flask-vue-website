@@ -1,60 +1,65 @@
 <template>
   <div id="documentation" class="pt-4">
-    <div class="container">
 
-      <div class="row">
+      <div class="">
+          <div class="container">
 
-            <div class="col-12 col-lg-9">
+            <div class="row">
 
-                  <template
-
-                    v-for="(ct_section, index) in documents">
+                  <div class="col-12 col-lg-9">
 
                         <template
-                        v-if="sectionStatus == index + 1">
-                                <div
-                                  class="card hA_cardFlow"
-                                >
 
-                                    <div class="card-header">
-                                        <h1 class="text-left">
-                                            {{ct_section.title}}
-                                        </h1>
-                                    </div>
+                          v-for="(ct_section, index) in documents">
 
-                                    <div class="card-body">
-                                        <section class="border-top my-4">
+                              <template
+                              v-if="sectionStatus == index + 1">
+                                      <div
+                                        class="card hA_cardFlow"
+                                      >
 
-                                                <div v-html="ct_section.introtext">
+                                          <div class="card-header">
+                                              <h1 class="text-left">
+                                                  {{ct_section.title}}
+                                              </h1>
+                                          </div>
+
+                                          <div class="card-body">
+                                              <section class="border-top my-4">
+
+                                                      <div v-html="ct_section.introtext">
 
 
-                                                </div>
+                                                      </div>
 
-                                        </section>
-                                    </div>
+                                              </section>
+                                          </div>
 
-                                </div>
+                                      </div>
+                              </template>
+
                         </template>
 
-                  </template>
+                  </div>
 
-            </div>
+                  <div class="col-lg-3">
 
-            <div class="col-lg-3">
+                  </div>
 
-                  <template v-if="documents.length > 0">
+              </div>
+          </div>
+      </div>
 
-                      <omnidb-documents-lister
-                        :documents="documents"
-                      >
-                      </omnidb-documents-lister>
 
-                  </template>
+    <template v-if="documents.length > 0">
 
-            </div>
+        <omnidb-documents-lister
+          :documents="documents"
+        >
+        </omnidb-documents-lister>
 
-        </div>
-    </div>
+    </template>
+
   </div>
 </template>
 

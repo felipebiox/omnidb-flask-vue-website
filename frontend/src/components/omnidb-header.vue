@@ -54,6 +54,35 @@
                 @click="(page.url) ? emitLoadPage( { 'pageUrl': page.url, 'pageIndex': pageIndex, 'childIndex': null } ) : preventDefault()"
                 variant="transparent"
               >
+
+                  <template v-if="page.label == 'Documentation'">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="32" height="32" viewBox="0 0 32 32">
+
+                          <path
+                            d="M 6 1 L 26 1 L 26 29 L 6 29 Z"
+                            fill="none" stroke="#819ec8" stroke-width="1"/>
+
+                          <path
+                            d="M 27 3 L 30 4 L 30 32 L 8 32 L 7 30"
+                            fill="none" stroke="#819ec8" stroke-width="1"/>
+
+                          <path
+                            d="M 12 8 24 8"
+                            fill="none" stroke="#819ec8" stroke-width="1"/>
+
+                          <path
+                            d="M 12 12 24 12"
+                            fill="none" stroke="#819ec8" stroke-width="1"/>
+
+                          <path
+                            d="M 12 16 24 16"
+                            fill="none" stroke="#819ec8" stroke-width="1"/>
+
+                        </svg>
+                  </template>
+
                   {{ page.label }}
 
                   <template v-if="page.children && page.children.length > 0">
@@ -64,7 +93,7 @@
                           :key="childIndex"
                           @click="(child.url) ? emitLoadPage( { 'pageUrl': child.url, 'pageIndex': pageIndex, 'childIndex': childIndex } ) : preventDefault()"
                         >
-                            {{ child.label }} {{pageIndex}} {{childIndex}}
+                            {{ child.label }}
                         </b-dropdown-item>
                       </b-dropdown>
 

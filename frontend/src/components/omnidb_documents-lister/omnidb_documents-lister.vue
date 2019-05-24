@@ -1,4 +1,5 @@
 <template>
+  <div class="omnidb_documents-lister_container">
     <ul
       class="omnidb_documents-lister_ul"
     >
@@ -14,6 +15,7 @@
 
       </template>
     </ul>
+  </div>
 </template>
 
 <script>
@@ -60,25 +62,42 @@ export default {
 </script>
 
 <style lang="scss">
+  .omnidb_documents-lister_container {
+      position: fixed;
+      top: 188px;
+      right: 1rem;
+      bottom: 0;
+      padding: 0 1rem 0 0.5rem;
 
-  ul.omnidb_documents-lister_ul {
-      padding: 0.25rem;
+      ul.omnidb_documents-lister_ul {
+          margin-bottom: 0;
+          padding: 0.25rem;
 
-      display: flex;
-      flex-wrap: wrap;
-      flex-direction: column;
+          display: flex;
+          flex-wrap: wrap;
+          flex-direction: column;
 
-          li.omnidb_documents-lister_li {
-              list-style: unset;
+              li.omnidb_documents-lister_li {
+                  list-style: unset;
 
-              flex: 1 1 100%;
-              display: flex;
+                  flex: 1 1 100%;
+                  display: flex;
+                  align-items: stretch;
+                  justify-content: stretch;
+                  min-height: 40px;
 
-              svg {
-                  flex: 0 0 16px;
+                  &> a {
+                      flex: 1 1 100%;
+                      font-size: 1.2rem;
+                      font-weight: 200;
+                      color: #c88181;
+                  }
+
+                  svg {
+                      flex: 0 0 16px;
+                  }
+
               }
-
-          }
+      }
   }
-
 </style>

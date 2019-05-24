@@ -1,6 +1,6 @@
 <template>
 
-  <div class="animated slideInFromRight">
+  <div class="main-content">
 
         <slot></slot>
 

@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="animated slideInFromRight">
     <p>Overview</p>
 
   </div>

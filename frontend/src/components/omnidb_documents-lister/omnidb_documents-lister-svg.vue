@@ -5,19 +5,18 @@
       version="1.1"
       x="0px"
       y="0px"
-      width="16"
+      :width="getWidth()"
       :height="getHeight()"
       :viewBox="'0 0 16 ' + getHeight()"
-      :style="'enable-background:new 0 0 16 ' + getHeight() + ';'"
+      :style="'enable-background:new 0 0 ' + getWidth() + ' ' + getHeight() + '; flex: 0 0 ' + getWidth() + ';'"
       xml:space="preserve"
       fill="none"
-
     >
 
         <path
           :d="buildPath( 'start' )"
           stroke-width="1"
-          stroke="green"
+          stroke="#819ec8"
         >
         </path>
 
@@ -62,6 +61,12 @@ export default {
 
   methods: {
 
+      getWidth() {
+
+          return ( this.index % 2 == 0 ) ? 32 : 16;
+
+      },
+
       getHeight( ) {
 
           return this.itemHeight;
@@ -70,11 +75,12 @@ export default {
 
       buildPath( pathId ) {
 
-          let height = this.getHeight(),
+          let width = this.getWidth(),
+              height = this.getHeight(),
               center = 8,
               middle = height/2,
-              axisPos = center + 6,
-              axisNeg = center - 6,
+              axisPos = center + width,
+              axisNeg = center - width,
               bottom = height,
 
           paths = {
