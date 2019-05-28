@@ -42,9 +42,10 @@
 }
 
 .hA_cardFlow {
-    $an_start: 0.5s;
-    $an_duration: 0.45s;
+    $an_start: 0.4s;
+    $an_duration: 0.35s;
 
+    /*
     opacity: 0;
     transform: scale(0);
 
@@ -52,20 +53,21 @@
     @include animation-delay($an_start);
     @include animation-fill-mode(forwards);
     @include animation-duration($an_duration);
-    .card-header,
+    */
+    .card-header h1,
     .card-body {
         opacity: 0;
         transform: translateX(100%);
     }
-    .card-header {
+    .card-header h1 {
         @include animation-name(slideInFromRight, fadeIn);
-        @include animation-delay($an_start*1.6);
+        @include animation-delay($an_start*0.6);
         @include animation-fill-mode(forwards);
         @include animation-duration($an_duration);
     }
     .card-body {
         @include animation-name(slideInFromRight, fadeIn);
-        @include animation-delay($an_start*2);
+        @include animation-delay($an_start*1);
         @include animation-fill-mode(forwards);
         @include animation-duration($an_duration);
     }

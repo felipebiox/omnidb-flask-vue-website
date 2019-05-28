@@ -49,7 +49,12 @@ export default {
 
       itemHeight: {
           type: Number,
-          default: 16
+          default: 40
+      },
+
+      itemWidth: {
+          type: Number,
+          default: 80
       }
 
   },
@@ -58,7 +63,7 @@ export default {
     return {
 
         childHeight: this.itemHeight,
-        transitionDuration: '0.5s'
+        transitionDuration: '0.35s'
 
     }
   },
@@ -67,7 +72,7 @@ export default {
 
       getWidth() {
 
-          return this.itemHeight * 2;
+          return this.itemWidth;
 
       },
 
@@ -79,18 +84,18 @@ export default {
 
       getAxisPos() {
 
-          return ( this.index % 2 == 0 ) ? this.itemHeight : this.itemHeight / 2;
+          return ( this.index % 2 == 0 ) ? this.getWidth() / 2 : this.getWidth() / 4;
 
       },
 
       buildPath( pathId ) {
 
-          let width = this.getWidth(),
+          let width = this.getWidth() / 2,
               height = this.getHeight(),
               center = 8,
               middle = height/2,
-              axisPos = center + this.getAxisPos(),
-              axisNeg = center - width,
+              axisPos = center - this.getAxisPos(),
+              axisNeg = center + width,
               bottom = height,
 
           paths = {
@@ -122,9 +127,9 @@ export default {
 
       getAnimation( order ) {
 
-          let dashArray = this.itemHeight * 1.6,
-              dashOffset = this.itemHeight * 1.6,
-              transitionDelay = this.index + (0.32 * order) + 's',
+          let dashArray = this.itemWidth * 2,
+              dashOffset = this.itemWidth * 2,
+              transitionDelay = this.index + (0.16 * order) + 's',
 
               animation = 'stroke-dasharray:' + dashArray + ';' +
                           'stroke-dashoffset:' + dashOffset + ';' +

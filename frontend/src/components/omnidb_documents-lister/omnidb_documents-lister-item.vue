@@ -4,7 +4,17 @@
   class="omnidb_documents-lister_li"
 >
 
-    <a href="#" @click.prevent="emitChangeDocument( index )">
+    <div>
+
+        <a href="#" @click.prevent="emitChangeDocument( index )">
+
+            <span>
+
+                {{item.title}}
+
+            </span>
+
+        </a>
 
         <omnidb-documents-lister-svg
           :index="index"
@@ -12,13 +22,7 @@
         >
         </omnidb-documents-lister-svg>
 
-        <span>
-
-            {{item.title}}
-
-        </span>
-        
-    </a>
+    </div>
 
 </li>
 </template>
