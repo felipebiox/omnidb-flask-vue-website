@@ -69,6 +69,7 @@ export default {
       bottom: 0;
       padding: 0 1rem 0 0.5rem;
       width: 28vw;
+      box-shadow: -4px 0px 6px rgba(0,0,0,0.12);
 
       ul.omnidb_documents-lister_ul {
           margin-bottom: 0;
