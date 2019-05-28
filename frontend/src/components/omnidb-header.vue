@@ -9,7 +9,7 @@
     </div>
 
 		<div class="border-top"></div>
-
+    <!--
 		<div id="header1">
 			<div class="container">
 				<div class="row">
@@ -31,6 +31,7 @@
 				</div>
 			</div>
 		</div>
+    -->
 		<div id="header2">
 			<div class="container">
 				<div class="row">
@@ -58,7 +59,9 @@
                   <template v-if="page.label == 'Documentation'">
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
-                          width="32" height="32" viewBox="0 0 32 32">
+                          width="32" height="32" viewBox="0 0 32 32"
+                          style="transform:scale(0.8);"
+                        >
 
                           <path
                             d="M 6 1 L 26 1 L 26 29 L 6 29 Z"

@@ -64,7 +64,7 @@ export default {
 <style lang="scss">
   .omnidb_documents-lister_container {
       position: fixed;
-      top: 188px;
+      top: 112px;
       right: 1rem;
       bottom: 0;
       padding: 0 1rem 0 0.5rem;
@@ -91,10 +91,20 @@ export default {
                       font-size: 1.2rem;
                       font-weight: 200;
                       color: #c88181;
+
+                      span {
+                          display: inline-block;
+                      }
+
                   }
 
                   svg {
                       flex: 0 0 16px;
+                  }
+
+                  &:nth-of-type(2n) > a span {
+                     display: inline-block;
+                     transform: translateX(-1rem);
                   }
 
               }

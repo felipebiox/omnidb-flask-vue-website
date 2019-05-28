@@ -12,7 +12,12 @@
         >
         </omnidb-documents-lister-svg>
 
-        {{item.title}}
+        <span>
+
+            {{item.title}}
+
+        </span>
+        
     </a>
 
 </li>

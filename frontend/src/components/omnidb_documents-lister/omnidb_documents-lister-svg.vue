@@ -11,12 +11,14 @@
       :style="'enable-background:new 0 0 ' + getWidth() + ' ' + getHeight() + '; flex: 0 0 ' + getWidth() + ';'"
       xml:space="preserve"
       fill="none"
+      class="omnidb_documents-lister_svg"
     >
 
         <path
           :d="buildPath( 'start' )"
           stroke-width="1"
           stroke="#819ec8"
+          :style="getAnimation(0)"
         >
         </path>
 
@@ -24,6 +26,7 @@
           :d="buildPath( 'end' )"
           stroke-width="1"
           stroke="gray"
+          :style="getAnimation(1)"
         >
         </path>
 
@@ -54,7 +57,8 @@ export default {
   data() {
     return {
 
-        childHeight: this.itemHeight
+        childHeight: this.itemHeight,
+        transitionDuration: '0.5s'
 
     }
   },
@@ -63,7 +67,7 @@ export default {
 
       getWidth() {
 
-          return ( this.index % 2 == 0 ) ? 32 : 16;
+          return this.itemHeight * 2;
 
       },
 
@@ -73,13 +77,19 @@ export default {
 
       },
 
+      getAxisPos() {
+
+          return ( this.index % 2 == 0 ) ? this.itemHeight : this.itemHeight / 2;
+
+      },
+
       buildPath( pathId ) {
 
           let width = this.getWidth(),
               height = this.getHeight(),
               center = 8,
               middle = height/2,
-              axisPos = center + width,
+              axisPos = center + this.getAxisPos(),
               axisNeg = center - width,
               bottom = height,
 
@@ -108,6 +118,21 @@ export default {
 
           return paths[ pathId ].pathVector;
 
+      },
+
+      getAnimation( order ) {
+
+          let dashArray = this.itemHeight * 1.6,
+              dashOffset = this.itemHeight * 1.6,
+              transitionDelay = this.index + (0.32 * order) + 's',
+
+              animation = 'stroke-dasharray:' + dashArray + ';' +
+                          'stroke-dashoffset:' + dashOffset + ';' +
+                          'transition-duration:' + this.transitionDuration + ';' +
+                          'transition-delay:' + transitionDelay + ';';
+
+          return animation;
+
       }
 
   }
@@ -115,3 +140,22 @@ export default {
 }
 
 </script>
+
+<style lang="scss">
+  .omnidb_documents-lister_svg {
+
+      path {
+          animation-name: dash;
+          animation-fill-mode: forwards;
+
+          //stroke-dashoffset: 64;
+
+          @keyframes dash {
+              to {
+                  stroke-dashoffset: 0;
+              }
+          }
+
+      }
+  }
+</style>
