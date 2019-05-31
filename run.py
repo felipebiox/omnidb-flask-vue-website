@@ -6,6 +6,7 @@ from random import *
 import requests
 
 #models
+from backend.models.overview import Overview
 from backend.models.documentation import Document
 
 
@@ -48,22 +49,22 @@ CORS(
 
 
 
-@app.route('/api/random')
-def random_number():
-    response = {
-        'randomNumber': randint(1, 100)
-    }
-    return jsonify(response)
-
-
-
 @app.route('/', defaults={'path': ''})
 @app.route('/<path:path>')
 def catch_all(path):
     if app.debug:
         return requests.get('http://localhost:8080/{}'.format(path)).text
 
-    context = {}
+    pageTitle = 'OmniDB'
+    pageSubtitle = 'Open Source Collaborative Environment For Database Management'
+
+
+    context = {
+        'data': {
+            'pageTitle' : pageTitle,
+            'pageSubtitle' : pageSubtitle
+        }
+    }
     return render_template("templates/index.html", context)
 
 
@@ -72,6 +73,21 @@ def catch_all(path):
 
 
 #Data routes
+@app.route('/api/getOverview')
+#@cross_origin(supports_credentials=True)
+def overview():
+
+    sections = Overview.getAll()
+
+    context = {
+        'data': sections
+    }
+
+    response = context
+
+    return jsonify(response)
+
+
 @app.route('/api/getDocumentation')
 #@cross_origin(supports_credentials=True)
 def documentation():

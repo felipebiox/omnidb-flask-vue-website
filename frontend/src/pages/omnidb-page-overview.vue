@@ -1,6 +1,52 @@
 <template>
-  <div class="animated slideInFromRight">
-    <p>Overview</p>
+  <div id="omnidb-overview" class="animated fadeIn">
+
+      <div v-for="(section, index) in this.sections" class="container">
+
+          <section :id="'overview_section_' + section.alias">
+
+              <div class="container">
+
+                  <div class="row">
+
+                      <div class="col-5">
+
+                          <h1 v-if="section.title" class="text-right">
+                              {{section.title}}
+                          </h1>
+
+                          <h2 v-if="section.subtitle" class="text-right">
+                              {{section.subtitle}}
+                          </h2>
+
+                      </div>
+
+                      <div class="col-7">
+
+                          <div class="overview-img">
+                              (( url_for('static', filename='/css/style.css') ))
+                              <div
+                                  v-if="section.image"
+                                  class="section-image"
+                                  :style="'background-image:url(' + section.image + ')'"
+                              >
+                              </div>
+
+                              <div v-else>
+                                  No image...
+                              </div>
+
+                          </div>
+
+                      </div>
+
+                  </div>
+
+              </div>
+
+          </section>
+
+      </div>
 
   </div>
 </template>
@@ -12,23 +58,48 @@ import axios from 'axios'
 export default {
   data () {
     return {
-      documents: 0
+      sections: 0
     }
   },
   inject:['EventBus'],
   methods: {
-    getDocuments () {
-      const path = 'http://localhost:5000/api/getDocumentation'
-      axios.get(path)
-        .then(response => {
-          this.documents = response.data.data
-        })
-        .catch(error => {
-          console.log(error)
-        })
-    }
+
+      getOverview () {
+
+        const path = 'http://localhost:5000/api/getOverview';
+        const config = {
+          method: 'GET',
+          mode: 'no-cors',
+          headers: {
+            'Access-Control-Allow-Origin': 'http://localhost:8080',
+            'Access-Control-Allow-Headers': 'Authorization',
+            'Access-Control-Allow-Methods': 'GET, POST, OPTIONS, PUT, PATCH, DELETE',
+            'Access-Control-Allow-Credentials': true,
+            //'Content-Type': 'application/json',
+            'Content-Type': 'application/json',
+          },
+          withCredentials: true,
+          //credentials: 'same-origin',
+          credentials: true
+        }
+
+        axios.get( path, config )
+          .then(response => {
+
+              this.sections = response.data.data;
+
+              //this.setStatus();
+
+          })
+          .catch(error => {
+            console.log(error)
+          })
+      },
+
   },
-  created () {
+  mounted () {
+
+      this.getOverview();
 
   }
 }
