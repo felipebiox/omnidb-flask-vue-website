@@ -6,7 +6,7 @@ Vue.directive('omnidb-scroll', {
 
     let jEl = $(el),
         target = $( "#" + jEl.attr('attr-scroll-target') ),
-        scrollTriggerPosition = jEl.offset().top,
+        scrollTriggerPosition = jEl.offset().top - 200,
         scrollTriggerBottom   = scrollTriggerPosition + jEl.height(),
         classAppliedOnTrigger = ( jEl.attr('attr-scroll-class') ) ? jEl.attr('attr-scroll-class') : 'omnidb-fixed';
 
