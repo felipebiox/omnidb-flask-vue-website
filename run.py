@@ -50,6 +50,7 @@ CORS(
 
 
 @app.route('/', defaults={'path': ''})
+@app.route('/static/<path:path>')
 @app.route('/<path:path>')
 def catch_all(path):
     if app.debug:

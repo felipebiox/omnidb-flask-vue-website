@@ -14,7 +14,12 @@ require('./assets/scss/style.scss')
 Vue.config.productionTip = false
 Vue.use(BootstrapVue)
 
+//MIXINS
 import EventBusMixin from './components/mixins/EventBus'
+
+//CUSTOM DIRECTIVES
+import './components/directives/omnidb-scroll'
+
 /* eslint-disable no-new */
 new Vue({
   el: '#app',

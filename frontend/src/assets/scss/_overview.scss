@@ -1,0 +1,18 @@
+.overview-img {
+    position: fixed;
+    top: 122px;
+    bottom: 0;
+    right: 1rem;
+    left: calc(100vw - 50%);
+    height: calc(100vh - 128px);
+    pointer-events: none;
+}
+
+//States based on the directive omnidb-scroll (parent class omnidb-fixed)
+.overview-img {
+    opacity: 0;
+    transition: opacity 0.45s;
+}
+.omnidb-fixed .overview-img {
+    opacity: 1;
+}

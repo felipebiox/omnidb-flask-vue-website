@@ -3,7 +3,12 @@
 
       <div v-for="(section, index) in this.sections" class="container">
 
-          <section :id="'overview_section_' + section.alias">
+          <section
+              :id="'overview_section_' + section.alias"
+
+              v-omnidb-scroll
+              attr-scroll-target="page-content"
+          >
 
               <div class="container">
 
@@ -19,17 +24,20 @@
                               {{section.subtitle}}
                           </h2>
 
+                          <div v-if="section.text" v-html="section.text"></div>
+
                       </div>
 
                       <div class="col-7">
 
                           <div class="overview-img">
-                              (( url_for('static', filename='/css/style.css') ))
+
                               <div
                                   v-if="section.image"
                                   class="section-image"
                                   :style="'background-image:url(' + section.image + ')'"
                               >
+                                Test: <span class="text-primary">{{section.image}}</span>
                               </div>
 
                               <div v-else>
